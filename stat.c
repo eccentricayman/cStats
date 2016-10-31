@@ -15,27 +15,34 @@ void printHumanReadable(long long unsigned size) {
     }
     ctr--;
     if (ctr < 3) {
-        printf("%llu B", size);
+        printf("%lluB", size);
     }
     else if (ctr < 6) {
-        printf("%llu KB", size / 1000);
+        printf("%lluKB", size / 1000);
     }
     else if (ctr < 9) {
-        printf("%llu MB", size / 1000000);
+        printf("%lluMB", size / 1000000);
     }
     else {
-        printf("%llu GB", size / 1000000000);
+        printf("%lluGB", size / 1000000000);
     }
+}
+
+void printLS(int mode, long long unsigned size, char * time) {
+    //temp
+    printf("--------");
+    char timeformatted[strlen(time)];
+    strncpy(timeformatted, time + 4, 12);
+    printf(" 1 eccentricayman staff ");
+    printHumanReadable(size);
+    printf(" %s test.txt\n", timeformatted);
 }
 
 int main() {
     
     struct stat stats;
     stat("test.txt", &stats);
-    printHumanReadable(stats.st_size);
-    printf("mode: %O\n", stats.st_mode);
-    printf("last access time: %s\n", asctime(gmtime(&stats.st_atime)));
-
+    printLS(stats.st_mode, stats.st_size, asctime(gmtime(&stats.st_atime)));
     return 0;
     
 }
